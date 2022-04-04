@@ -1,0 +1,11 @@
+
+.App{
+    position: relative;
+    display: grid;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.floating_action_button {
+ display: block;
+}
