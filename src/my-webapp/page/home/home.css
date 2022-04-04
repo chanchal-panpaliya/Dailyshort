@@ -1,0 +1,14 @@
+.home-container{
+    display: grid;
+    grid-template-rows: "header" "section" "footer";
+    height: 100vh;
+    width: auto;
+}
+
+.home-header-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    padding-top: 10vh;
+}

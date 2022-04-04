@@ -1,0 +1,132 @@
+.header-container{
+    background-color: var(--primary-color);
+    width: -webkit-fill-available;
+    height: auto;
+    padding: 0.438rem ;
+    position:fixed;
+    top: 0;
+    z-index: 1;
+}
+
+
+.header-container-flex{
+    display: flex;
+    gap: 2%;
+    flex-wrap: wrap;
+    flex-shrink: inherit;
+}
+
+.header-left-end {
+    width: 12%;
+}
+
+.header-right-end {
+    width: 10%;
+}
+
+/*Logo*/
+
+.logoimage-size{
+    width: 4.5rem;
+}
+
+.logoimage-size-small{
+    width:0.8vw;
+    margin-left: 0.25rem;
+}
+
+.header-logo{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-shrink: inherit;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 2rem;
+}
+
+.logo-sub-heading{
+    display: flex;
+    justify-content: space-evenly;
+    color: var(--white);
+    font-style: italic;
+    flex-wrap: wrap;
+    flex-shrink: inherit;
+    position: relative;
+    left: -0.125rem;
+}
+
+.small-logo-content{
+    font-size: 0.625rem;
+}
+
+/*right-header*/
+.header-right-container{
+    display: flex;
+    gap: 2%;
+    flex: 1;
+    justify-content: end;
+    flex-wrap: wrap;
+    flex-shrink: inherit;
+    align-items: center;
+}
+
+
+.header-button-more , .header-button-cart{
+    width: 5rem;
+    height: inherit;
+    padding: 0.75rem;
+    color: var(--color-white);
+    border: none;
+    background: transparent;
+}
+
+.themeicon-onhover{
+   color: var(--white);
+   font-size: 1.5rem;
+   cursor: pointer;
+}
+
+@media (max-width: 800px){
+    .header-container-flex{
+        justify-content: center;
+        row-gap: 1rem;
+    }
+
+    .header-search{
+        display: flex
+    }
+
+    .header-search-input{
+         width: -webkit-fill-available;
+    }
+
+    .header-left-end , .header-right-end{
+        width: auto;
+    }
+
+    .header-right-container{
+        justify-content: center;
+    }
+
+  }
+
+  @media (max-width: 300px){
+    .header-container-flex{
+        justify-content: center;
+        row-gap: 1rem;
+    }
+    .header-search{
+        display: flex
+    }
+
+    .header-search-input{
+         width: -webkit-fill-available;
+    }
+    .header-left-end , .header-right-end{
+        width: auto;
+    }
+    .header-right-container{
+        justify-content: center;
+    }
+  }
