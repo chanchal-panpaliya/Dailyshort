@@ -28,13 +28,13 @@ const Note_Label = () =>{
                 <div className='grid-note-cart'> 
                 {SearchByTitle.length>0 && SearchByTitle.map((item,index)=>{      
                     return(
-                        <>
+                        
                             <div className='flex-col row-gap-1rem typography-padding-5px' key={index}>
                                 <SetLabel note={item} index={index} />
                                 <Card data={item}/>
                                 <br/> 
                             </div>
-                        </>
+                        
                     )   
                 })}
             </div>

@@ -52,11 +52,11 @@ const Note_Home = () =>{
     }
     const clearnote=()=>{
         settext("")
-        setDesc(EditorState.push(editorState, ContentState.createFromText('','remove-range')))
+        setDesc(EditorState.createEmpty())
         setColor("#555555")
         setpriority("")
         setPined(false)
-        seteditorState(EditorState.push(editorState, ContentState.createFromText('','remove-range')))
+        seteditorState(EditorState.createEmpty())
     }
     const onEditorStateChange =(editorState)=>{
         setDesc(draftToHtml(convertToRaw(editorState.getCurrentContent())))
@@ -115,13 +115,13 @@ const Note_Home = () =>{
             {SearchByTitle.length>0?<h3> PINNED </h3>:null}
                 <div className='typology-padding-top grid-note-cart'>
                   {SearchByTitle.length>0 && SearchByTitle.map((item,index)=>{
-                    return item.pin===true? <Card data={item}/>:null  
+                    return item.pin===true? <Card data={item} key={index}/>:null  
                   })}
                 </div>
             {SearchByTitle.length>0?<h3> OTHERS </h3>:null}
             <div className='typology-padding-top grid-note-cart'>
                   {SearchByTitle.length>0 && SearchByTitle.map((item,index)=>{
-                         return item.pin===false ?  <Card data={item}/> : null
+                         return item.pin===false ?  <Card data={item} key={index}/> : null
                   })}
             </div>
         </div>

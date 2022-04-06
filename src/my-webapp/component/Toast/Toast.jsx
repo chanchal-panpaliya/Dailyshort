@@ -23,9 +23,9 @@ const Toast = (props) =>{
     return(
       <div className="toast-container">
       {
-        props.data.map((toast, i) => (
+        props.data.map((toast, index) => (
           <div
-            key={i}
+            key={index}
             className="toast-notification"
             style={{ backgroundColor: toast.backgroundColor }}
           >
