@@ -1,5 +1,5 @@
 import "./auth.css";
-import { useState ,useRef } from 'react';
+import { useState ,useRef ,useEffect} from 'react';
 import { Link } from "react-router-dom";
 import { handleLogin } from "../../api/utility";
 import Header from "../../component/Header/Header";
@@ -22,6 +22,10 @@ const Login =()=>{
     const [formData, setFormData] = useState(formInitialState);
     const { email, password, rememberMe } = formData;
     const [hideshowpassword,sethideshowpassword]=useState(false);
+
+    useEffect(()=>{
+      window.scrollTo({ behavior: 'smooth', top: '0px' });
+  },[])
 
     const handleInput = (e) =>
     setFormData((prevFormData) => ({

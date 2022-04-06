@@ -1,5 +1,5 @@
 import "./auth.css";
-import { useState ,useRef } from 'react';
+import { useState ,useRef ,useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Header from "../../component/Header/Header";
 import { useTheme } from "../../context/theme-context";
@@ -11,6 +11,10 @@ const ForgotPassword =()=>{
     const [retypedPassword, setRetypedPassword] = useState("");
     const [hideshowpassword,sethideshowpassword]=useState(false);
     const [hideshow_rety_Pass,Sethideshow_rety_Pass]=useState(false);
+
+    useEffect(()=>{
+        window.scrollTo({ behavior: 'smooth', top: '0px' });
+    },[])
 
     const handleSubmit=(e)=>{
         e.preventDefault();

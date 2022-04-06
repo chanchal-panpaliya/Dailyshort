@@ -1,5 +1,5 @@
 import "./auth.css";
-import { useState ,useRef } from 'react';
+import { useState ,useRef ,useEffect} from 'react';
 import { handleRegistration } from "../../api/utility";
 import { Link } from "react-router-dom";
 import Header from "../../component/Header/Header";
@@ -16,6 +16,10 @@ const Register =()=>{
     const [termsAndConditions,settermsAndConditions]=useState(false);
     const [hideshowpassword,sethideshowpassword]=useState(false);
     const [hideshow_rety_Pass,Sethideshow_rety_Pass]=useState(false);
+
+    useEffect(()=>{
+        window.scrollTo({ behavior: 'smooth', top: '0px' });
+    },[])
 
     const validateemail=(e)=>{
         const emailRegex = /\S+@\S+\.\S+/;

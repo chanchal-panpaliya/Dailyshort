@@ -33,7 +33,10 @@ const Menu = () =>{
      const SortBypin = getpin(SortBydateNote,filter.sortpin)
      const SearchByTitle = getSearchCart(SortBypin,filter.search);
     
+  
+
     useEffect(()=>{
+      window.scrollTo({ behavior: 'smooth', top: '0px' });
       const noteItems=
       localStorage.getItem("route") == null
         ? "home"

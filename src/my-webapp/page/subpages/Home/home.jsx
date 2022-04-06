@@ -1,5 +1,5 @@
 //react
-import { useContext,useState } from 'react';
+import { useContext,useState ,useEffect} from 'react';
 import moment from 'moment';
 import { v4 as uuid } from "uuid";
 //component
@@ -31,6 +31,11 @@ const Note_Home = () =>{
     const SortBydateNote = getdate(PriorityNote,filter.sortdate);
     const SortBypin = getpin(SortBydateNote,filter.sortpin)
     const SearchByTitle = getSearchCart(SortBypin,filter.search);
+
+    useEffect(()=>{
+        window.scrollTo({ behavior: 'smooth', top: '0px' });
+    },[])
+
     let note = {
         id:uuid(),
         title : gettext,

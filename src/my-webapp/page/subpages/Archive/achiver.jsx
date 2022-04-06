@@ -1,5 +1,5 @@
 //react
-import { useContext,useState } from 'react';
+import { useContext,useState ,useEffect} from 'react';
 //component
 import { Achive_Card } from '../../../component/Card/Card';
 import Filter from '../../../component/Filter/Filter'
@@ -15,6 +15,11 @@ const Note_Achiver = () =>{
     const SortBydateNote = getdate(PriorityNote,filter.sortdate);
     const SortBypin = getpin(SortBydateNote,filter.sortpin)
     const SearchByTitle = getSearchCart(SortBypin,filter.search);
+
+    useEffect(()=>{
+        window.scrollTo({ behavior: 'smooth', top: '0px' });
+    },[])
+
     return(
             <div className='flex-col flex-justify-content-center flex-align-item-center row-gap-1rem typology-padding-top'>
                <div className='flex-col row-gap-2rem filter-box'>
