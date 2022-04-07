@@ -62,6 +62,7 @@ const Note_Home = () =>{
         setpriority("")
         setPined(false)
         seteditorState(EditorState.createEmpty())
+        window.location.reload();
     }
     const onEditorStateChange =(editorState)=>{
         setDesc(draftToHtml(convertToRaw(editorState.getCurrentContent())))
