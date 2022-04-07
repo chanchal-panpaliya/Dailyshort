@@ -56,13 +56,13 @@ const Note_Home = () =>{
         background: 'white',
     }
     const clearnote=()=>{
+        window.location.reload(); // clear fun not working - draft.js added reload for temp based
         settext("")
         setDesc(EditorState.createEmpty())
         setColor("#555555")
         setpriority("")
         setPined(false)
         seteditorState(EditorState.createEmpty())
-        window.location.reload();
     }
     const onEditorStateChange =(editorState)=>{
         setDesc(draftToHtml(convertToRaw(editorState.getCurrentContent())))
