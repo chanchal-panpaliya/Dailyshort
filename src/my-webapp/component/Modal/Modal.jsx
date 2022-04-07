@@ -137,7 +137,7 @@ export const Modal_Confirm =(props)=>{
                     <section className="flex-row col-gap-1rem flex-justify-content-center flex-align-item-center">  
                         <button 
                            className="button button-outline-primary button-onhover-fillbackground"
-                           onClick={()=>{handle_deleteTrash(props.data);props.modalClose}}> Yes </button>
+                           onClick={()=>{handle_deleteTrash(props.data);props.modalClose()}}> Yes </button>
                         <button className="button button-outline-primary button-onhover-fillbackground" onClick={props.modalClose}> No </button>
                     </section>
                 </div>
