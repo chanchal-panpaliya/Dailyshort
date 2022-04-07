@@ -1,6 +1,5 @@
 //react
 import { Link } from "react-router-dom";
-import {useEffect} from 'react';
 //css
 import '../index'
 //component
@@ -10,11 +9,6 @@ import Footer from "../../component/Footer/Footer";
 import { useTheme } from "../../context/theme-context";
 const Home = () =>{
 const { darkTheme } = useTheme();
-
-useEffect(()=>{
-   window.scrollTo({ behavior: 'smooth', top: '0px' });
-},[])
-
 return(
    <div>
       <Header layout={""} sidebarOpen={""}/>

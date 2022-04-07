@@ -1,3 +1,5 @@
+import moment from "moment";
+
 //label
 export const getLabelNote = (data,checkedlist)=>{
     if(checkedlist.length === 0) {
@@ -27,15 +29,15 @@ export const getpin=(data,pin)=>{
 export const getdate=(data,date)=>{
     if (date === "Oldest"){
           return [...data].sort((item1,item2)=>{
-              let date1 = item1.date.split('/').reverse().join();
-              let date2 = item2.date.split('/').reverse().join();
+              let date1 = item1.date
+              let date2 = item2.date
                     return date1.localeCompare(date2)
           })
     }
     if (date === "Newest"){
         return [...data].sort((item1,item2)=>{
-            let date1 = item1.date.split('/').reverse().join();
-            let date2 = item2.date.split('/').reverse().join();
+            let date1 = item1.date
+            let date2 = item2.date
                   return date2.localeCompare(date1)
         })
     }

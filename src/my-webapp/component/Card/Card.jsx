@@ -1,5 +1,6 @@
 //react
 import { useContext,useState,useEffect } from 'react';
+import moment from 'moment';
 //context
 import NoteContext from '../../context/NoteContext';
 import { useTheme } from '../../context/theme-context';
@@ -15,6 +16,7 @@ export const Card = (props) =>{
     const [showmodal,set_showmodal]=useState(false);
     const [getcolor,setcolor]=useState(props.data.color);
     const [getpin,setpin]=useState(props.data.pin);
+
 
     const handlechangecolor =(e)=>{
         setcolor(e.target.value)
@@ -75,9 +77,9 @@ export const Card = (props) =>{
                     null} 
             </div>
             <div className='flex-row card-footer-icon typography-padding-5px'>    
-                <small className='font-size-date'> Created on {props.data.date} </small>
+                <small className='font-size-date'> Created on {moment(props.data.date).format("DD/MM/YYYY")} </small>
                 <small className='flex-row col-gap-1rem'>
-                    <input className='color-input' type="color" value={getcolor} onChange={handlechangecolor} />
+                    <input className='color-input' type="color" value={props.data.color} onChange={handlechangecolor} />
                     <i className="material-icons curser-pointer icon-note-hover " onClick={()=>{set_showmodal(!showmodal)}}> edit </i>
                     <i className="material-icons curser-pointer icon-note-hover " onClick={()=>handler_Achive(props.data)}>archive</i> 
                     <i className="material-icons curser-pointer icon-note-hover " onClick={()=>handler_DeleteNote(props.data)} >delete</i>
@@ -99,6 +101,7 @@ export const Card = (props) =>{
       </div>
   )
 }
+
 
 export const Achive_Card = (props) =>{
     const {handler_DeleteAchive,handle_EditArchive,handler_CreateNote} = useContext(NoteContext);
@@ -163,9 +166,9 @@ export const Achive_Card = (props) =>{
                 {props.data.label!==""? <span class="badge badge-primary font-size-date">{props.data.label}</span>: null} 
           </div>
           <div className='flex-row card-footer-icon typography-padding-5px'>    
-            <small className='font-size-date'>Created on {props.data.date} </small>
+            <small className='font-size-date'>Created on {moment(props.data.date).format("DD/MM/YYYY")} </small>
             <small className='flex-row col-gap-1rem'>
-                <input className='color-input' type="color" value={getcolor} onChange={handlechangecolor} />
+                <input className='color-input' type="color" value={props.data.color} onChange={handlechangecolor} />
                 <i className="material-icons curser-pointer icon-note-hover" onClick={()=>{set_showmodal(!showmodal)}}> edit </i>
                 <i className="material-icons curser-pointer icon-note-hover" onClick={()=>handler_DeleteAchive(props.data)}>delete</i>
                 <i className="material-icons curser-pointer icon-note-hover" onClick={()=>{handler_CreateNote(props.data),handler_DeleteAchive(props.data)}}>undo</i>
@@ -217,7 +220,7 @@ export const Trash_Card = (props) =>{
                      null} 
            </div>
             <div className='flex-row card-footer-icon typography-padding-5px'>    
-                <small className='font-size-date'>Created on {props.data.date} </small>
+                <small className='font-size-date'> Created on {moment(props.data.date).format("DD/MM/YYYY")} </small>
                 <small className='flex-row col-gap-1rem'>
                     <i className="material-icons curser-pointer" onClick={()=>{set_showmodal(!showmodal)}}>delete</i>
                     <i className="material-icons curser-pointer" onClick={()=>{handler_CreateNote(props.data),handle_deleteTrash(props.data)}}>undo</i>
@@ -239,4 +242,6 @@ export const Trash_Card = (props) =>{
       </div>
   )
 }
+
+
 

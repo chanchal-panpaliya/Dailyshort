@@ -6,7 +6,7 @@ import "../index.css";
 import NoteContext from '../../../context/NoteContext';
 import {getLabelNote,getPriority,getdate,getSearchCart,getpin} from '../utility/filterutility';
 //component
-import { Card } from '../../../component/Card/Card';
+import {Card } from '../../../component/Card/Card';
 import SetLabel from './setlabel';
 import Filter from '../../../component/Filter/Filter'
 
@@ -19,7 +19,7 @@ const Note_Label = () =>{
     const SortBydateNote = getdate(PriorityNote,filter.sortdate);
     const SortBypin = getpin(SortBydateNote,filter.sortpin)
     const SearchByTitle = getSearchCart(SortBypin,filter.search);
-
+    //
     useEffect(()=>{
         window.scrollTo({ behavior: 'smooth', top: '0px' });
     },[])
@@ -33,13 +33,11 @@ const Note_Label = () =>{
                 <div className='grid-note-cart'> 
                 {SearchByTitle.length>0 && SearchByTitle.map((item,index)=>{      
                     return(
-                        
                             <div className='flex-col row-gap-1rem typography-padding-5px' key={index}>
                                 <SetLabel note={item} index={index} />
                                 <Card data={item}/>
                                 <br/> 
                             </div>
-                        
                     )   
                 })}
             </div>

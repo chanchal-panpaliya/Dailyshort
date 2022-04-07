@@ -13,7 +13,7 @@ const Toast = (props) =>{
         if(toastList.length) {
           deleteToast(toastList[0].id);
         }
-      }, 3000);
+      }, 500);
   
       return () => {
         clearInterval(interval);
@@ -23,9 +23,9 @@ const Toast = (props) =>{
     return(
       <div className="toast-container">
       {
-        props.data.map((toast, index) => (
+        props.data.map((toast, i) => (
           <div
-            key={index}
+            key={i}
             className="toast-notification"
             style={{ backgroundColor: toast.backgroundColor }}
           >

@@ -32,8 +32,7 @@ const Menu = () =>{
      const SortBydateNote = getdate(PriorityNote,filter.sortdate);
      const SortBypin = getpin(SortBydateNote,filter.sortpin)
      const SearchByTitle = getSearchCart(SortBypin,filter.search);
-    
-  
+ 
 
     useEffect(()=>{
       window.scrollTo({ behavior: 'smooth', top: '0px' });

@@ -29,7 +29,7 @@ const ForgotPassword =()=>{
                         <h4> ForgotPassword </h4>
                         <form onSubmit={(e)=>handleSubmit(e)}> 
                             <div className="flex-row  col-gap-2rem textField-container">  
-                                <input type="email" name="email" value={emailId} placeholder="johndoe@gmail.com" autoComplete="off" className="text-input" style={{color:darkTheme?"white":"black"}}
+                                <input type="email" name="email" value={emailId} placeholder="johndoe@gmail.com" autocomplete="off" className="text-input" style={{color:darkTheme?"white":"black"}}
                                 onChange={(e)=>setEmailId(e.target.value)} required/>
                                 <label className="text-placeholder"> Email Id </label>                                                
                             </div>

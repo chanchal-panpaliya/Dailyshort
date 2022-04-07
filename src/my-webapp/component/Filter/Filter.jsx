@@ -20,7 +20,7 @@ const Filter = (props) =>{
                setChecklist(updated_list) 
               }
          },0)
-         return ()=> clearTimeout(time1)  
+       return ()=> clearTimeout(time1)  
     })
 
  
@@ -43,12 +43,14 @@ const Filter = (props) =>{
                         {
                             checklist.length>0 ? checklist.map((item,index)=>{
                             return(
+                                <>
                                     <label key={index} className="chcekbox-item">
                                         <span> {item} </span>
                                         <input  type="checkbox" name="label"  value={item} checked={filter.isChecked.includes(item)}
                                         onChange={(e)=>{ filterdispatch({type:"TOGGLE_CHECKBOX",payload: e.target.value,status: e.target.checked})}}
                                         />
                                     </label> 
+                                </>
                             )
                         }) : <small> No label added on note </small>
                         }

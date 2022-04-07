@@ -19,5 +19,9 @@ export const submenulist = [
         route : "trash",
         Icon : "delete",
     },
-
+    // { 
+    //     name : "PROFILE" ,
+    //     route : "profile",
+    //     Icon : "person",
+    // },
 ]

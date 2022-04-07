@@ -66,7 +66,7 @@ const Register =()=>{
                                     <label className="text-placeholder"> Enter Last Name </label>                                                
                                 </div>    
                                 <div className="flex-row  col-gap-2rem textField-container">  
-                                    <input type="email" name="email" value={emailId} placeholder="johndoe@gmail.com" autoComplete="off" className="text-input" style={{color:darkTheme?"white":"black"}} onChange={(e)=>validateemail(e)} required/>
+                                    <input type="email" name="email" value={emailId} placeholder="johndoe@gmail.com" autocomplete="off" className="text-input" style={{color:darkTheme?"white":"black"}} onChange={(e)=>validateemail(e)} required/>
                                     <label className="text-placeholder"> Email Id </label>                                                
                                 </div>
                             </section>

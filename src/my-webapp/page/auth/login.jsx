@@ -1,5 +1,5 @@
 import "./auth.css";
-import { useState ,useRef ,useEffect} from 'react';
+import { useState ,useRef ,useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { handleLogin } from "../../api/utility";
 import Header from "../../component/Header/Header";
@@ -50,12 +50,12 @@ const Login =()=>{
                   <h4>  Login </h4>
                   <form onSubmit={(e)=>handleLogin({e,email,password,setFormData})}>
                       <div className="flex-row  col-gap-2rem textField-container">  
-                        <input type="email" name="email" value={email} placeholder="johndoe@gmail.com" autoComplete="off" className= "text-input" 
+                        <input type="email" name="email" value={email} placeholder="johndoe@gmail.com" autocomplete="off" className= "text-input" 
                             onChange={handleInput} style={{color:darkTheme?"white":"black"}} required/>
                         <label className="text-placeholder"> Email Id </label>                                                
                       </div>
                       <div className="flex-row  col-gap-2rem textField-container">  
-                        <input type= {hideshowpassword?"text":"password"} name="password" value={password} className="text-input" 
+                        <input type= {hideshowpassword?"text":"password"} name="password" value={password} className="text-input" autocomplete="off" 
                           onChange={handleInput} style={{color:darkTheme?"white":"black"}} required/>
                         <input type="checkbox" className="check-show-password" value={hideshowpassword} onChange={(e)=>{sethideshowpassword(!hideshowpassword)}}/> 
                         <label className="text-placeholder"> Password </label>                                                

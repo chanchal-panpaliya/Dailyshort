@@ -10,7 +10,7 @@ import "../index.css";
 import NoteContext from '../../../context/NoteContext';
 import {getLabelNote,getPriority,getdate,getSearchCart,getpin} from '../../subpages/utility/filterutility';
 //draf-js
-import { convertToRaw, EditorState } from 'draft-js';
+import { convertToRaw, EditorState ,ContentState} from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { Editor } from "react-draft-wysiwyg";
 import "../../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -31,42 +31,50 @@ const Note_Home = () =>{
     const SortBydateNote = getdate(PriorityNote,filter.sortdate);
     const SortBypin = getpin(SortBydateNote,filter.sortpin)
     const SearchByTitle = getSearchCart(SortBypin,filter.search);
+    //
 
     useEffect(()=>{
         window.scrollTo({ behavior: 'smooth', top: '0px' });
     },[])
-
+    
+    //constant 
     let note = {
         id:uuid(),
         title : gettext,
-        desc : getDesc,
+        desc : editorState,
         color : getcolor,
         pin :get_pin,
         label:"",
         priority:getpriority,
-        date : moment(new Date()).format("DD/MM/YYYY")
+        date : moment(new Date()).format("DD/MM/YYYY HH:mm:ss")
     }
+
+    
     const wrapperStyle = {
         border: '1px solid #969696',
         color:'black',
     }
+
     const editorStyle = {
         height:'5rem',
         padding:'1rem',
         background: 'white',
     }
+
     const clearnote=()=>{
         window.location.reload(); // clear fun not working - draft.js added reload for temp based
         settext("")
-        setDesc(EditorState.createEmpty())
         setColor("#555555")
         setpriority("")
         setPined(false)
-        seteditorState(EditorState.createEmpty())
+        seteditorState(EditorState.createEmpty());
     }
+
     const onEditorStateChange =(editorState)=>{
-        setDesc(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+        seteditorState(draftToHtml(convertToRaw(editorState.getCurrentContent())))
     }
+
+  
     return(
         <div className='flex-col flex-justify-content-center flex-align-item-center row-gap-1rem typology-padding-top'>
             <div className="notes-form">
@@ -82,7 +90,7 @@ const Note_Home = () =>{
                 </div>
                 <div className='flex-row col-gap-1rem flex-justify-content-center flex-align-item-center'> 
                     {
-                      gettext!=="" && getDesc!=="" ? 
+                      gettext!=="" && editorState!=="" ? 
                       <>
                            select background color:  
                            <input type="color" value={getcolor} onChange={(e)=>{setColor(e.target.value)}} /> 
@@ -109,25 +117,25 @@ const Note_Home = () =>{
                       </>:null
                     }
                  </div>
-                 {gettext && getDesc && getpriority && (
+                 {gettext && editorState && getpriority && (
                     <button 
-                        className={ (gettext==="" && getDesc==="") ? "button button-outline-primary disabled-button-pointer":
+                        className={ (gettext==="" && editorState==="") ? "button button-outline-primary disabled-button-pointer":
                                                                     'button button-outline-primary button-onhover-fillbackground'} 
-                        disabled={gettext==="" && getDesc===""}
-                        onClick={()=>{handler_CreateNote(note),clearnote()}}> Add Note 
+                        disabled={gettext==="" && editorState===""}
+                        onClick={()=>{handler_CreateNote(note);clearnote()}}> Add Note 
                     </button>
                 )}
             </div>
             {SearchByTitle.length>0?<h3> PINNED </h3>:null}
                 <div className='typology-padding-top grid-note-cart'>
                   {SearchByTitle.length>0 && SearchByTitle.map((item,index)=>{
-                    return item.pin===true? <Card data={item} key={index}/>:null  
+                    return item.pin===true? <Card data={item}/>:null  
                   })}
                 </div>
             {SearchByTitle.length>0?<h3> OTHERS </h3>:null}
             <div className='typology-padding-top grid-note-cart'>
                   {SearchByTitle.length>0 && SearchByTitle.map((item,index)=>{
-                         return item.pin===false ?  <Card data={item} key={index}/> : null
+                         return item.pin===false ?  <Card data={item}/> : null
                   })}
             </div>
         </div>
