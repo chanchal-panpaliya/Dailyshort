@@ -8,7 +8,8 @@ https://user-images.githubusercontent.com/28673856/162235739-8d573b94-c5ad-471b-
 
 <b> Tech Stack </b>
 
-- React.js , draf.js
+- React.js , draf.js , 
+- For CSS - used my solutionground component library - https://solutionground.netlify.app/
 
 <b> Features </b>
 
