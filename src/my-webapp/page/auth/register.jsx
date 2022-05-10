@@ -1,11 +1,12 @@
 import "./auth.css";
 import { useState ,useRef ,useEffect} from 'react';
 import { handleRegistration } from "../../api/utility";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import Header from "../../component/Header/Header";
 import { useTheme } from "../../context/theme-context";
 
 const Register =()=>{
+    let navigator = useNavigate();
     const { darkTheme } = useTheme();
     const [firstname,setName] = useState("");
     const [emailId, setEmailId] = useState("");
@@ -22,6 +23,7 @@ const Register =()=>{
     },[])
 
     const validateemail=(e)=>{
+        e.preventDefault();
         const emailRegex = /\S+@\S+\.\S+/;
         setEmailId(e.target.value)
         if (!emailRegex.test(e.target.value.toLowerCase())) {
@@ -32,21 +34,6 @@ const Register =()=>{
     }
 
 
-    const handleSubmit=(e)=>{
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = {};
-
-        for (let x of formData) {
-          data[x[0]] = x[1];
-        }
-       
-        handleRegistration(data).then(function(result){
-            console.log(result)       
-         });   
-
-    } 
-
     return(
         <div>
             <Header layout={""} sidebarOpen={""}/>
@@ -54,7 +41,7 @@ const Register =()=>{
                 <div className={darkTheme?"auth-container-darkmood" : "auth-container"}>
                     <div className='flex-col'>
                     <h4> Registration </h4>
-                    <form onSubmit={handleSubmit}> 
+                    <form onSubmit={(e)=>handleRegistration(e,emailId,password,firstname,lastname,termsAndConditions,navigator,setError)}>
                         <div className="flex-row">
                             <section>
                                 <div className="flex-row  col-gap-2rem textField-container">  
@@ -82,7 +69,7 @@ const Register =()=>{
                                     <label className="text-placeholder"> Confirm password </label>                                             
                                 </div>
                                 <div className="flex-row  col-gap-2rem textField-container">  
-                                    <input  type='checkbox' name="termsAndConditions" checked={termsAndConditions} onChange={()=>settermsAndConditions(!termsAndConditions)}/>  
+                                    <input  type='checkbox' name="termsAndConditions" value={termsAndConditions} onChange={()=>settermsAndConditions(!termsAndConditions)}/>  
                                     <small > I accept all Terms & Conditions </small>                                         
                                 </div>
                             </section>

@@ -8,16 +8,22 @@ import { Card } from '../../../component/Card/Card';
 import "../index.css";
 //context
 import NoteContext from '../../../context/NoteContext';
+import { useAuth } from 'my-webapp/context/login/AuthContext';
 import {getLabelNote,getPriority,getdate,getSearchCart,getpin} from '../../subpages/utility/filterutility';
 //draf-js
 import { convertToRaw, EditorState ,ContentState} from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { Editor } from "react-draft-wysiwyg";
 import "../../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+//service
+import {handle_postNote} from '../../../api/utility';
 
 
 const Note_Home = () =>{
+    //
     const {noteItems,handler_CreateNote,filter} = useContext(NoteContext);
+    let {token} = useAuth()
+    //
     const [gettext,settext]=useState("")
     const [getDesc,setDesc]=useState("")
     const [getcolor,setColor]=useState("#555555")
@@ -62,7 +68,7 @@ const Note_Home = () =>{
     }
 
     const clearnote=()=>{
-        window.location.reload(); // clear fun not working - draft.js added reload for temp based
+       // window.location.reload(); // clear fun not working - draft.js added reload for temp based
         settext("")
         setColor("#555555")
         setpriority("")
@@ -122,7 +128,7 @@ const Note_Home = () =>{
                         className={ (gettext==="" && editorState==="") ? "button button-outline-primary disabled-button-pointer":
                                                                     'button button-outline-primary button-onhover-fillbackground'} 
                         disabled={gettext==="" && editorState===""}
-                        onClick={()=>{handler_CreateNote(note);clearnote()}}> Add Note 
+                        onClick={(e)=>{handle_postNote(e,token,note,handler_CreateNote);clearnote();}}> Add Note 
                     </button>
                 )}
             </div>

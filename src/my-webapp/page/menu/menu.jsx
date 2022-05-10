@@ -16,11 +16,14 @@ import './menu.css';
 import { useTheme } from "../../context/theme-context";
 import {getLabelNote,getPriority,getdate,getSearchCart,getpin} from '../subpages/utility/filterutility';
 import NoteContext from '../../context/NoteContext';
+import { useAuth } from "my-webapp/context/login/AuthContext";
 //constant
 import {submenulist} from "./constant";
 
 
 const Menu = () =>{
+     let {token} = useAuth()
+     //
      const [route,setRoute]=useState("home")
      const navigate = useNavigate();
      const { darkTheme } = useTheme();
@@ -37,7 +40,7 @@ const Menu = () =>{
     useEffect(()=>{
       window.scrollTo({ behavior: 'smooth', top: '0px' });
       const noteItems=
-      localStorage.getItem("route") == null
+      localStorage.getItem("route") == null && localStorage.getItem("token")!==null
         ? "home"
         : localStorage.getItem("route")
 
@@ -51,6 +54,13 @@ const Menu = () =>{
 
      const sidebarClose=()=>{
       setside_toggle(false)
+     }
+
+     const handleLogout=(e)=>{
+         e.preventDefault();
+          localStorage.clear()
+         sidebarClose(); 
+         navigate("/login")
      }
     
 
@@ -77,21 +87,21 @@ const Menu = () =>{
                         )
                       })
                     }
-                    <div className="sidebar__logout" onClick={() =>{sidebarClose(); navigate("/login") }}>
+                    <div className="sidebar__logout" onClick={(e)=>handleLogout(e) }>
                       <i className="fa fa-home"></i>
                       <label className="sidebar_button"> Logout </label>
                     </div>
-                    {route==="home"?<Filter data={SearchByTitle} originaldata={noteItems}/>:null} 
+                    {route=="home"?<Filter data={SearchByTitle} originaldata={noteItems}/>:null} 
                   </div>
                 </div>
               </div>
               {/* main */}
               <main id="main">
-                {route === "home" && <Note_Home/>}
-                {route === "archive" && <Note_Achiver />}
-                {route === "label" && <Note_Label/>}
-                {route === "trash" && <Note_Trash/>}
-                {route === "profile" && <Note_Profile/>}
+                {route == "home" && <Note_Home/>}
+                {route == "archive" && <Note_Achiver />}
+                {route == "label" && <Note_Label/>}
+                {route == "trash" && <Note_Trash/>}
+                {route == "profile" && <Note_Profile/>}
               </main>
            </div> 
          </div>

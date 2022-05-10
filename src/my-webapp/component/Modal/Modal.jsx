@@ -10,9 +10,13 @@ import { Editor  } from "react-draft-wysiwyg";
 import "../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 //context
 import { useTheme } from '../../context/theme-context';
+import { useAuth } from "my-webapp/context/login/AuthContext";
+//service
+import { editNoteService } from "my-webapp/api/utility";
 
 //modal edit
 export const Modal =(props)=>{
+    let {token} = useAuth()
     let {handle_editNote} = useContext(NoteContext)
     const { darkTheme } = useTheme();
     //function
@@ -97,7 +101,7 @@ export const Modal =(props)=>{
                                 "button button-outline-primary disabled-button-pointer":
                                 'button button-outline-primary button-onhover-fillbackground'} 
                             disabled={gettext==="" && getDesc===""}
-                            onClick={()=>{handle_editNote(note); props.modalClose() }}
+                            onClick={()=>{editNoteService(token,handle_editNote,note); props.modalClose() }}
                             > Edit Note 
                     </button>
                     <button 

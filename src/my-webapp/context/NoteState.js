@@ -3,22 +3,25 @@ import NoteContext from "./NoteContext";
 import NoteReducer from "./NoteReducer";
 import ToastReducer from "./Toast/ToastReducer";
 import NoteFilter from "./NoteFilter";
-
+//service
+import { handle_getNote ,handle_getArchiveNote,handle_getTrashNote,handle_postTrashNote} from "my-webapp/api/utility";
+//auth context
+import { useAuth } from "./login/AuthContext";
 
 const NoteState =({ children })=>{
-        
+        let{token}=useAuth()
       const noteItems=
-          localStorage.getItem("notelist") == null
+          localStorage.getItem("notelist") == null || localStorage.getItem("notelist") == "undefined"
             ? []
-            : JSON.parse(localStorage.getItem("notelist"))
+            : JSON.parse(localStorage.getItem("notelist")) 
     
       const achiveItems =
-          localStorage.getItem("achivelist") == null
+          localStorage.getItem("achivelist") == null || localStorage.getItem("achivelist") == "undefined"
             ? []
             : JSON.parse(localStorage.getItem("achivelist"))
       
       const deletedItems =
-          localStorage.getItem("trashlist") == null
+          localStorage.getItem("trashlist") == null || localStorage.getItem("trashlist") == "undefined"
             ? []
             : JSON.parse(localStorage.getItem("trashlist"))
     
@@ -29,10 +32,34 @@ const NoteState =({ children })=>{
     //filter
     const [filter,filterdispatch] = useReducer(NoteFilter,{isChecked:[],priority:"",sortdate:"",search:"",sortpin:""})
     useEffect(() => {
+      //  handle_getNote(token).then(res=>{
+      //        if(res.length===0){
+      //         localStorage.setItem("notelist", JSON.stringify([])); 
+      //        }else{
+      //         localStorage.setItem("notelist", JSON.stringify(res));
+      //        }
+      //  });
+       //issue with archive api , not storing data , here i'm using local storage for archive funtionality
+      //  handle_getArchiveNote(token).then(res=>{
+      //   if(res.length===0){
+      //       localStorage.setItem("achivelist", JSON.stringify([]));
+      //   }else{
+      //       localStorage.setItem("achivelist", JSON.stringify(note.achiveItems));
+      //   }
+      //  })
+      //  handle_getTrashNote(token).then(res=>{
+      //   if(res.length===0){
+      //       localStorage.setItem("trashlist", JSON.stringify([]));
+      //   }else{
+      //     localStorage.setItem("trashlist", JSON.stringify(note.deletedItems));
+      //   }
+      //  })
         localStorage.setItem("notelist", JSON.stringify(note.noteItems));
         localStorage.setItem("achivelist", JSON.stringify(note.achiveItems));
         localStorage.setItem("trashlist", JSON.stringify(note.deletedItems));
-      }, [note.noteItems,note.achiveItems,note.deletedItems]);
+      });
+
+      
     //function
     //create note
     const handler_CreateNote=(item)=>{
