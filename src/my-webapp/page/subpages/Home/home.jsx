@@ -21,7 +21,7 @@ import {handle_postNote} from '../../../api/utility';
 
 const Note_Home = () =>{
     //
-    const {noteItems,handler_CreateNote,filter} = useContext(NoteContext);
+    const {noteItems,handler_CreateNote,filter,toastdispatch} = useContext(NoteContext);
     let {token} = useAuth()
     //
     const [gettext,settext]=useState("")
@@ -68,7 +68,6 @@ const Note_Home = () =>{
     }
 
     const clearnote=()=>{
-       // window.location.reload(); // clear fun not working - draft.js added reload for temp based
         settext("")
         setColor("#555555")
         setpriority("")
@@ -128,7 +127,7 @@ const Note_Home = () =>{
                         className={ (gettext==="" && editorState==="") ? "button button-outline-primary disabled-button-pointer":
                                                                     'button button-outline-primary button-onhover-fillbackground'} 
                         disabled={gettext==="" && editorState===""}
-                        onClick={(e)=>{handle_postNote(e,token,note,handler_CreateNote);clearnote();}}> Add Note 
+                        onClick={(e)=>{handle_postNote(e,token,note,handler_CreateNote,toastdispatch);clearnote();}}> Add Note 
                     </button>
                 )}
             </div>

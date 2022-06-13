@@ -12,12 +12,12 @@ import "../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.cs
 import { useTheme } from '../../context/theme-context';
 import { useAuth } from "my-webapp/context/login/AuthContext";
 //service
-import { editNoteService } from "my-webapp/api/utility";
+import { editNoteService,handle_deleteTrashNote ,handle_updateArchivesNote} from "my-webapp/api/utility";
 
 //modal edit
 export const Modal =(props)=>{
     let {token} = useAuth()
-    let {handle_editNote} = useContext(NoteContext)
+    let {handle_editNote,toastdispatch} = useContext(NoteContext)
     const { darkTheme } = useTheme();
     //function
     const [gettext,settext]=useState(props.data.title)
@@ -39,7 +39,8 @@ export const Modal =(props)=>{
         pin :getpin,
         label:props.data.label,
         priority:getpriority,
-        date : props.data.date 
+        date : props.data.date ,
+        _id:props.data._id
     }
     const wrapperStyle = {
         border: '1px solid #969696',
@@ -101,7 +102,7 @@ export const Modal =(props)=>{
                                 "button button-outline-primary disabled-button-pointer":
                                 'button button-outline-primary button-onhover-fillbackground'} 
                             disabled={gettext==="" && getDesc===""}
-                            onClick={()=>{editNoteService(token,handle_editNote,note); props.modalClose() }}
+                            onClick={()=>{editNoteService(token,handle_editNote,note,toastdispatch); props.modalClose() }}
                             > Edit Note 
                     </button>
                     <button 
@@ -125,7 +126,8 @@ export const Modal =(props)=>{
 
 //modal confirm
 export const Modal_Confirm =(props)=>{
-    let {handle_deleteTrash} = useContext(NoteContext)
+    let {handle_deleteTrash,toastdispatch} = useContext(NoteContext)
+    let {token} = useAuth()
    return(
     <div className='modal'>
     <div className="modal-container">  
@@ -141,7 +143,7 @@ export const Modal_Confirm =(props)=>{
                     <section className="flex-row col-gap-1rem flex-justify-content-center flex-align-item-center">  
                         <button 
                            className="button button-outline-primary button-onhover-fillbackground"
-                           onClick={()=>{handle_deleteTrash(props.data);props.modalClose()}}> Yes </button>
+                           onClick={()=>{handle_deleteTrashNote(token,props.data,handle_deleteTrash,toastdispatch);props.modalClose()}}> Yes </button>
                         <button className="button button-outline-primary button-onhover-fillbackground" onClick={props.modalClose}> No </button>
                     </section>
                 </div>
@@ -156,7 +158,8 @@ export const Modal_Confirm =(props)=>{
 //modal archive edit
 export const Modal_Archive =(props)=>{
     //context
-    let {handle_EditArchive} = useContext(NoteContext)
+    let {token} = useAuth()
+    let {handle_EditArchive,toastdispatch} = useContext(NoteContext)
     const { darkTheme } = useTheme();
     //state
     const [gettext,settext]=useState(props.data.title)
@@ -172,7 +175,7 @@ export const Modal_Archive =(props)=>{
     const editorDataState = EditorState.createWithContent(contentState);
     const [editorState, setEditorState] = useState(editorDataState);
     //constant
-    let note = {
+    const update_note = {
         id:props.data.id,
         title : gettext,
         desc : draftToHtml(convertToRaw(editorState.getCurrentContent())),
@@ -180,7 +183,8 @@ export const Modal_Archive =(props)=>{
         pin :getpin,
         label:getlabel,
         priority:getpriority,
-        date : props.data.date 
+        date : props.data.date ,
+        _id:props.data._id
     }
     const wrapperStyle = {
         border: '1px solid #969696',
@@ -252,7 +256,8 @@ export const Modal_Archive =(props)=>{
                                 "button button-outline-primary disabled-button-pointer":
                                 'button button-outline-primary button-onhover-fillbackground'} 
                             disabled={gettext==="" && getDesc===""}
-                            onClick={()=>{handle_EditArchive(note); props.modalClose() }}
+                            onClick={()=>{
+                                handle_updateArchivesNote(token,handle_EditArchive,update_note,toastdispatch); props.modalClose() }}
                             > Edit Note 
                     </button>
 
