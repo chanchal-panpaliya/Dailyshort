@@ -12,16 +12,11 @@ import {Modal,Modal_Confirm,Modal_Archive} from '../Modal/Modal';
 //
 import { useAuth } from 'my-webapp/context/login/AuthContext';
 //service
-import {handle_updateArchivesNote,
-        deleteNoteService,handle_postArchiveNote,
-        handle_postRestore_ArchiveNote,
-        deleteArchiveNote,editNoteService,
-        handle_Restore_DeletedNote
-    } from '../../api/utility';
+import {postNotePinService,deleteNoteService,handle_postArchiveNote,handle_postRestore_ArchiveNote,deleteArchiveNote} from '../../api/utility';
 
 export const Card = (props) =>{
     let {token} = useAuth();
-    const {handler_DeleteNote,handler_Achive,handle_editNote,toastdispatch} = useContext(NoteContext);
+    const {handler_DeleteNote,handler_Achive,handle_editNote} = useContext(NoteContext);
     const { darkTheme } = useTheme();
     const [showmodal,set_showmodal]=useState(false);
     const [getcolor,setcolor]=useState(props.data.color);
@@ -38,15 +33,15 @@ export const Card = (props) =>{
             pin :props.data.pin,
             label:props.data.label,
             priority:props.data.priority,
-            date : props.data.date ,
-            _id:props.data._id 
+            date : props.data.date 
         }
-        editNoteService(token,handle_editNote,updated_note_color,toastdispatch)
+
+        handle_editNote(updated_note_color)
     }
 
     const handleeditpin=(e)=>{
         setpin(!props.data.pin)
-        let updated_note_pin = {
+        let updated_note_color = {
             id:props.data.id,
             title : props.data.title,
             desc : props.data.desc,
@@ -54,11 +49,11 @@ export const Card = (props) =>{
             pin :!props.data.pin,
             label:props.data.label,
             priority:props.data.priority,
-            date : props.data.date ,
-            _id:props.data._id
+            date : props.data.date 
         }
 
-        editNoteService(token,handle_editNote,updated_note_pin,toastdispatch)
+        postNotePinService(token,updated_note_color,handle_editNote)
+
     }
 
   return(
@@ -90,12 +85,12 @@ export const Card = (props) =>{
                     null} 
             </div>
             <div className='flex-row card-footer-icon typography-padding-5px'>    
-                <small className='font-size-date'> Created on {props.data.date}</small>
+                <small className='font-size-date'> Created on {moment(props.data.date).format("DD/MM/YYYY")} </small>
                 <small className='flex-row col-gap-1rem'>
                     <input className='color-input' type="color" value={props.data.color} onChange={handlechangecolor} />
                     <i className="material-icons curser-pointer icon-note-hover " onClick={()=>{set_showmodal(!showmodal)}}> edit </i>
-                    <i className="material-icons curser-pointer icon-note-hover " onClick={()=>handle_postArchiveNote(token,handler_Achive,props.data,toastdispatch)}>archive</i> 
-                    <i className="material-icons curser-pointer icon-note-hover " onClick={()=>deleteNoteService(token,handler_DeleteNote,props.data,toastdispatch)} >delete</i>
+                    <i className="material-icons curser-pointer icon-note-hover " onClick={()=>handle_postArchiveNote(token,handler_Achive,props.data)}>archive</i> 
+                    <i className="material-icons curser-pointer icon-note-hover " onClick={()=>deleteNoteService(token,handler_DeleteNote,props.data)} >delete</i>
                 </small>
             </div> 
             {props.data.priority!=="" ? <>
@@ -118,7 +113,7 @@ export const Card = (props) =>{
 
 export const Achive_Card = (props) =>{
     let {token} = useAuth()
-    const {handler_DeleteAchive,handle_EditArchive,handle_RestoreArchive,toastdispatch} = useContext(NoteContext);
+    const {handler_DeleteAchive,handle_EditArchive,handler_CreateNote} = useContext(NoteContext);
     const { darkTheme } = useTheme();
     const [showmodal,set_showmodal]=useState(false);
     const [getcolor,setcolor]=useState(props.data.color);
@@ -134,15 +129,14 @@ export const Achive_Card = (props) =>{
             pin :props.data.pin,
             label:props.data.label,
             priority:props.data.priority,
-            date : props.data.date ,
-            _id:props.data._id
+            date : props.data.date 
         }
-        handle_updateArchivesNote(token,handle_EditArchive,updated_note_color,toastdispatch)
+        handle_EditArchive(updated_note_color)
     }
 
     const handleeditpin=(e)=>{
         setpin(!props.data.pin)
-        let updated_note_pin = {
+        let updated_note_color = {
             id:props.data.id,
             title : props.data.title,
             desc : props.data.desc,
@@ -150,10 +144,9 @@ export const Achive_Card = (props) =>{
             pin :!props.data.pin,
             label:props.data.label,
             priority:props.data.priority,
-            date : props.data.date ,
-            _id:props.data._id
+            date : props.data.date 
         }
-        handle_updateArchivesNote(token,handle_EditArchive,updated_note_pin,toastdispatch)
+        handle_EditArchive(updated_note_color)
     }
 
   return(
@@ -182,12 +175,12 @@ export const Achive_Card = (props) =>{
                 {props.data.label!==""? <span class="badge badge-primary font-size-date">{props.data.label}</span>: null} 
           </div>
           <div className='flex-row card-footer-icon typography-padding-5px'>    
-            <small className='font-size-date'>Created on {props.data.date} </small>
+            <small className='font-size-date'>Created on {moment(props.data.date).format("DD/MM/YYYY")} </small>
             <small className='flex-row col-gap-1rem'>
                 <input className='color-input' type="color" value={props.data.color} onChange={handlechangecolor} />
                 <i className="material-icons curser-pointer icon-note-hover" onClick={()=>{set_showmodal(!showmodal)}}> edit </i> 
-                <i className="material-icons curser-pointer icon-note-hover" onClick={()=>deleteArchiveNote(token,handler_DeleteAchive,props.data,toastdispatch)}>delete</i>
-                <i className="material-icons curser-pointer icon-note-hover" onClick={()=>handle_postRestore_ArchiveNote(token,props.data,handle_RestoreArchive,toastdispatch)}>undo</i>
+                <i className="material-icons curser-pointer icon-note-hover" onClick={()=>deleteArchiveNote(token,handler_DeleteAchive,props.data)}>delete</i>
+                <i className="material-icons curser-pointer icon-note-hover" onClick={()=>handle_postRestore_ArchiveNote(token,props.data,handler_CreateNote,handler_DeleteAchive)}>undo</i>
             </small>
         </div>
         {props.data.priority!=="" ? <>
@@ -209,8 +202,7 @@ export const Achive_Card = (props) =>{
 export const Trash_Card = (props) =>{
     const [showmodal,set_showmodal]=useState(false);
     const { darkTheme } = useTheme();
-    let {handle_RestoreTrash,toastdispatch} = useContext(NoteContext);
-    let {token} = useAuth();
+    let {handle_deleteTrash,handler_CreateNote} = useContext(NoteContext);
   return(
       <div>
         <div className="card-body" style={{backgroundColor:props.data.color,boxShadow:darkTheme?"1px 1px 10px 1px rgb(237 234 239)":""}}> 
@@ -237,10 +229,10 @@ export const Trash_Card = (props) =>{
                      null} 
            </div>
             <div className='flex-row card-footer-icon typography-padding-5px'>    
-                <small className='font-size-date'> Created on {props.data.date} </small>
+                <small className='font-size-date'> Created on {moment(props.data.date).format("DD/MM/YYYY")} </small>
                 <small className='flex-row col-gap-1rem'>
                     <i className="material-icons curser-pointer" onClick={()=>{set_showmodal(!showmodal)}}>delete</i>
-                    <i className="material-icons curser-pointer" onClick={()=>{handle_Restore_DeletedNote(token,props.data,handle_RestoreTrash,toastdispatch)}}>undo</i>
+                    <i className="material-icons curser-pointer" onClick={()=>{handler_CreateNote(props.data),handle_deleteTrash(props.data)}}>undo</i>
                 </small>
             </div>
             {props.data.priority!=="" ? <>

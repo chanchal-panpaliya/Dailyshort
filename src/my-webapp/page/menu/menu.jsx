@@ -28,7 +28,7 @@ const Menu = () =>{
      const navigate = useNavigate();
      const { darkTheme } = useTheme();
      const [side_toggle,setside_toggle] = useState(false)
-     const {noteItems,filter,toastdispatch} = useContext(NoteContext);
+     const {noteItems,filter} = useContext(NoteContext);
      //function
      const LabelNote = getLabelNote(noteItems,filter.isChecked);
      const PriorityNote = getPriority(LabelNote,filter.priority);
@@ -57,12 +57,10 @@ const Menu = () =>{
      }
 
      const handleLogout=(e)=>{
-        //  e.preventDefault();
+         e.preventDefault();
           localStorage.clear()
-          sidebarClose(); 
-          navigate("/login")
-          window.location.reload();
-          toastdispatch({type:'DANGER',payload:"LOGOUT SUCCESSFUL"})
+         sidebarClose(); 
+         navigate("/login")
      }
     
 

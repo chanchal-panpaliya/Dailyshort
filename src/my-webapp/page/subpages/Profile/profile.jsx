@@ -7,9 +7,9 @@ const Note_Profile = () =>{
            <div className='page-data-display'>
                <header className='like-page-header'>
                    <span className='like-page-round-circle'> 
-                    {user.firstName?user.firstName[0].toUpperCase():null} 
-                    {user.firstname?user.firstname[0].toUpperCase():null}
-                   </span> 
+                       {user.firstName[0] || user.firstname[0]}
+                   </span>
+                  
                </header>
                <section className='like-page-body'>
                <div className="table">

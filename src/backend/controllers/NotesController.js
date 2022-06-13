@@ -15,7 +15,7 @@ import { v4 as uuid } from "uuid";
 export const getAllNotesHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   if (!user) {
-    return new Response(
+    new Response(
       404,
       {},
       {
@@ -36,7 +36,7 @@ export const createNoteHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   try {
     if (!user) {
-      return new Response(
+      new Response(
         404,
         {},
         {
@@ -72,7 +72,7 @@ export const deleteNoteHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   try {
     if (!user) {
-      return new Response(
+      new Response(
         404,
         {},
         {
@@ -81,11 +81,9 @@ export const deleteNoteHandler = function (schema, request) {
       );
     }
     const noteId = request.params.noteId;
-    const noteToBeDeleted = user.notes.find(note => note._id === noteId);
-    user.trash.push({ ...noteToBeDeleted });
     user.notes = user.notes.filter((item) => item._id !== noteId);
     this.db.users.update({ _id: user._id }, user);
-    return new Response(200, {}, { notes: user.notes, trash: user.trash });
+    return new Response(200, {}, { notes: user.notes });
   } catch (error) {
     return new Response(
       500,
@@ -107,7 +105,7 @@ export const updateNoteHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   try {
     if (!user) {
-      return new Response(
+      new Response(
         404,
         {},
         {
@@ -142,7 +140,7 @@ export const archiveNoteHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   try {
     if (!user) {
-      return new Response(
+      new Response(
         404,
         {},
         {
@@ -153,7 +151,7 @@ export const archiveNoteHandler = function (schema, request) {
     const { noteId } = request.params;
     const archivedNote = user.notes.filter((note) => note._id === noteId)[0];
     user.notes = user.notes.filter((note) => note._id !== noteId);
-    user.archives.push({ ...archivedNote, isArchive: true});
+    user.archives.push({ ...archivedNote });
     this.db.users.update({ _id: user._id }, user);
     return new Response(
       201,

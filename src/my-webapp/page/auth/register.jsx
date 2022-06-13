@@ -1,16 +1,13 @@
 import "./auth.css";
-import { useState ,useRef ,useEffect,useContext} from 'react';
+import { useState ,useRef ,useEffect} from 'react';
 import { handleRegistration } from "../../api/utility";
 import { Link , useNavigate } from "react-router-dom";
 import Header from "../../component/Header/Header";
 import { useTheme } from "../../context/theme-context";
-import NoteContext from "my-webapp/context/NoteContext";
-
 
 const Register =()=>{
     let navigator = useNavigate();
     const { darkTheme } = useTheme();
-    let {toastdispatch} = useContext(NoteContext)
     const [firstname,setName] = useState("");
     const [emailId, setEmailId] = useState("");
     const [password, setPassword] = useState("");
@@ -44,7 +41,7 @@ const Register =()=>{
                 <div className={darkTheme?"auth-container-darkmood" : "auth-container"}>
                     <div className='flex-col'>
                     <h4> Registration </h4>
-                    <form onSubmit={(e)=>handleRegistration(e,emailId,password,firstname,lastname,termsAndConditions,navigator,setError,toastdispatch)}>
+                    <form onSubmit={(e)=>handleRegistration(e,emailId,password,firstname,lastname,termsAndConditions,navigator,setError)}>
                         <div className="flex-row">
                             <section>
                                 <div className="flex-row  col-gap-2rem textField-container">  

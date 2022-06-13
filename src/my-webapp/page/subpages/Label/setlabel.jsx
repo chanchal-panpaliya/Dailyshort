@@ -2,13 +2,10 @@
 import { useContext,useState,useEffect} from 'react';
 //context
 import NoteContext from '../../../context/NoteContext';
-import { useAuth } from 'my-webapp/context/login/AuthContext';
-//servic
-import {editNoteService} from '../../../api/utility';
+
 
 const SetLabel=(props)=>{
-    const {token} = useAuth()
-    const {noteItems,handle_editNote,filter,toastdispatch} = useContext(NoteContext);
+    const {noteItems,handle_editNote,filter} = useContext(NoteContext);
     const [getlabel,setlabel]=useState(props.note.label);
     const handleAddlabel =(item,getlabel)=>{
         let note = {
@@ -19,10 +16,9 @@ const SetLabel=(props)=>{
             pin :item.pin,
             label:getlabel,
             priority:item.priority,
-            date : item.date ,
-            _id:item._id
+            date : item.date 
         }
-        editNoteService(token,handle_editNote,note,toastdispatch)
+        handle_editNote(note)
     }
     return(
         <>

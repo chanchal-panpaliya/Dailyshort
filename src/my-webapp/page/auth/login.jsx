@@ -1,10 +1,9 @@
 import "./auth.css";
-import { useState ,useRef ,useEffect , useContext} from 'react';
+import { useState ,useRef ,useEffect } from 'react';
 import { Link , useNavigate} from "react-router-dom";
 import { handleLogin } from "../../api/utility";
 import Header from "../../component/Header/Header";
 import { useTheme } from "../../context/theme-context";
-import NoteContext from "my-webapp/context/NoteContext";
 
 const testCredentials = {
   email: "johndoe@gmail.com",
@@ -21,7 +20,6 @@ const formInitialState = {
 const Login =()=>{
   let navigator = useNavigate();
     const { darkTheme } = useTheme();
-    let {toastdispatch} = useContext(NoteContext)
     const [formData, setFormData] = useState(formInitialState);
     const { email, password, rememberMe } = formData;
     const [hideshowpassword,sethideshowpassword]=useState(false);
@@ -56,7 +54,7 @@ const Login =()=>{
               <div className={darkTheme?"auth-container-darkmood" : "auth-container"}>
                 <div className='flex-col'>
                   <h4>  Login </h4>
-                  <form onSubmit={(e)=>handleLogin(e,email,password,navigator,setError,toastdispatch)}>
+                  <form onSubmit={(e)=>handleLogin(e,email,password,navigator,setError)}>
                       <div className="flex-row  col-gap-2rem textField-container">  
                         <input type="email" name="email" value={email} placeholder="johndoe@gmail.com" className= "text-input" 
                             onChange={(e)=>handleInput(e)} style={{color:darkTheme?"white":"black"}} required/>

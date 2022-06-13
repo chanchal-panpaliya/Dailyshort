@@ -80,7 +80,6 @@ I due to the mockbee issue with iframe. Some of the buttons are not clickable.*/
   .sidebar_button{
     background-color: transparent;
     text-decoration: none;
-    cursor: pointer;
 }
 
   .sidebar__link:hover{
