@@ -23,11 +23,22 @@ function App() {
     <div className="App">
       <Router>
          <Routes>
-              <Route exact path="/" element={<Home/>}/>
-              <Route  path="/login" element={<Login/>} />
-              <Route  path="/register" element={<Register/>} />
+              {token!==null ? 
+              <>
+                <Route exact path="/menu" element={<Menu/>}/>
+                <Route exact path="/" element={<Menu/>}/>
+                <Route  path="/login" element={<Menu/>} />
+                <Route  path="/register" element={<Menu/>} />
+              </>
+               : 
+               <>
+                <Route exact path="/" element={<Home/>}/>
+                <Route  path="/login" element={<Login/>} />
+                <Route  path="/register" element={<Register/>} />
+                <Route exact path="/menu" element={<Home/>}/> 
+               </>
+             }
               <Route  path="/forgotpassword" element={<ForgotPassword/>} />
-              {token!==null ? <Route exact path="/menu" element={<Menu/>} /> : <Route exact path="/menu" element={<Home/>}/> }
               <Route exact path="*" element={<PageNotFound/>}/>
          </Routes>
         </Router>                                   

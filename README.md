@@ -1,11 +1,42 @@
-<b>
-  Auth Added with all api key
-  
-  note -
-  The issue is that the browser automatically imports the iframe tag. As a result, I am unable to store data via the API. Every time I refresh the page to remove the    iframe tag, the end result is the API data is lost.
+@ -1,41 +1,42 @@
+<h1> Daily Short - A Note-Taking </h1>
+<hr/>
 
-I integrate authentication and all api keys but still store data in local storage due to this issue. In the future, I will fix this problem. 
+<b> Preview </b>
+
+
+https://user-images.githubusercontent.com/28673856/162235739-8d573b94-c5ad-471b-bc5f-be891ad6089c.mp4
+
+<b> Tech Stack </b>
+
+- React.js , draf.js
+- React.js , draf.js , 
+- For CSS - used my solutionground component library - https://solutionground.netlify.app/
+
+<b> Features </b>
+
+<ol>
+  <li> Add a new note with Rich Text Editor </li>
+  <li> Edit & Delete Note </li>
+  <li> Filter & Sort by date, priority, tags</li>
+  <li> Change Card Color </li>
+  <li> Add Tags to notes</li>
+  <li> Trash & Archive</li>
+  <li> Archive Notes - crud operations </li>
+  <li> Trash Notes - crud operations </li>
+  <li> Sign-up , login , logout pages</li>
+  <li> Add Images </li>
+  <li> Search </li>
+  <li> data stored - localstorage </li>
+</ol>
+
+<b>   Additional Things </b>
+ - Fully responsive
+ 
+ <b> mobile screen  </b>
   
-  issue img:
-  ![noteapp](https://user-images.githubusercontent.com/28673856/167580650-812f00bf-b325-401a-8860-a06d73f9f6e0.png)
-![bug_iframe_component](https://user-images.githubusercontent.com/28673856/167580680-aad52744-0207-46a5-a0a6-0054769db62d.png)
+![mobile_note_app2](https://user-images.githubusercontent.com/28673856/162237151-137e72a1-55bc-4820-813a-27b1b62dc4a5.png)
+
+![mobile_note_app](https://user-images.githubusercontent.com/28673856/162237125-f4393d13-9358-40cd-9320-b936ae6809eb.png)
+
+<hr/>
