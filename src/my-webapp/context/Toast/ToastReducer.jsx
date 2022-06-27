@@ -9,6 +9,7 @@ const ToastReducer=(state,action)=>{
                     description: action.payload,
                     backgroundColor: '#5cb85c'
                 }    
+               
                 return {...state,toastList : [...state.toastList , toastProperties ]}
         }
         
@@ -50,6 +51,8 @@ const ToastReducer=(state,action)=>{
             toastProperties = [];
     }
  
+
+
 }
 
 export default ToastReducer;

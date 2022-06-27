@@ -56,7 +56,7 @@ const Login =()=>{
               <div className={darkTheme?"auth-container-darkmood" : "auth-container"}>
                 <div className='flex-col'>
                   <h4>  Login </h4>
-                  <form onSubmit={(e)=>handleLogin(e,email,password,navigator,setError,toastdispatch)}>
+                  <form onSubmit={(e)=>{e.preventDefault(); handleLogin(email,password,navigator,setError,toastdispatch)}}>
                       <div className="flex-row  col-gap-2rem textField-container">  
                         <input type="email" name="email" value={email} placeholder="johndoe@gmail.com" className= "text-input" 
                             onChange={(e)=>handleInput(e)} style={{color:darkTheme?"white":"black"}} required/>

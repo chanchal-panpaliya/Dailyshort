@@ -2,14 +2,13 @@ import axios from "axios";
 
 
 //registration
-export const handleRegistration = async (e,email,password,firstname,lastname,termsAndConditions,navigator,setError,toastdispatch) =>{
-    e.preventDefault();
+export const handleRegistration = async (email,password,firstname,lastname,termsAndConditions,navigator,setError,toastdispatch) =>{
     try {
          await axios.post("/api/auth/signup",{
             email,password,firstname,lastname,termsAndConditions
          }).then((res) => {
             if(res.status === 200 || res.status === 201){
-                console.log(res)
+                //console.log(res)
                 localStorage.setItem("token", res.data.encodedToken );
                 localStorage.setItem("user", JSON.stringify(res.data.createdUser));
                 setError("Registered successfully")
@@ -30,7 +29,7 @@ export const handleRegistration = async (e,email,password,firstname,lastname,ter
          });
                
           } catch (error) {
-              console.log(error)
+            
               setError("Not able to registered !! check ")
               toastdispatch({type:'DANGER',payload:"Not able to registered !!"})
               let time = setTimeout(()=>{
@@ -41,8 +40,7 @@ export const handleRegistration = async (e,email,password,firstname,lastname,ter
 }
 
 //login
-export const handleLogin = async (e,email,password,navigator,setError,toastdispatch) => {
-    e.preventDefault();
+export const handleLogin = async (email,password,navigator,setError,toastdispatch) => {
     try {
         await axios.post("/api/auth/login",{
             email,password 
@@ -84,7 +82,6 @@ export const handle_getNote = async (token) => {
 //post note
 export const handle_postNote = async (e,token,newNote,handler_CreateNote,toastdispatch) => {
     e.preventDefault();
-
     try {
         await axios.post("/api/notes", { note: newNote }, { headers: { authorization: token } }).then((res)=>{
             if(res.status === 201){

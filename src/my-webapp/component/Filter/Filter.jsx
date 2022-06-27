@@ -27,7 +27,7 @@ const Filter = (props) =>{
     return(
         <div className="font-size-small">
             <input type="search" 
-                placeholder="search note by title" 
+                placeholder="search note by title"
                 className='search-note'
                 value={filter.search}
                 onChange={(e)=>{filterdispatch({type:"SEARCH_BY_TITLE",payload:e.target.value})}} 

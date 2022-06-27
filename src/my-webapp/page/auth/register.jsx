@@ -44,7 +44,10 @@ const Register =()=>{
                 <div className={darkTheme?"auth-container-darkmood" : "auth-container"}>
                     <div className='flex-col'>
                     <h4> Registration </h4>
-                    <form onSubmit={(e)=>handleRegistration(e,emailId,password,firstname,lastname,termsAndConditions,navigator,setError,toastdispatch)}>
+                    <form onSubmit={(e)=>{
+                        e.preventDefault();
+                        handleRegistration(emailId,password,firstname,lastname,termsAndConditions,navigator,setError,toastdispatch)}
+                    }    >
                         <div className="flex-row">
                             <section>
                                 <div className="flex-row  col-gap-2rem textField-container">  

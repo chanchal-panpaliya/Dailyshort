@@ -3,12 +3,12 @@ const NoteFilter=(state,action)=>{
     switch(action.type){  
         //label
         case 'TOGGLE_CHECKBOX' :{
+            
             if(action.status) {
                 const newlabelArr = state.isChecked;
                 newlabelArr.push(action.payload)
                 return {
                     ...state,
-                    ...state.isChecked,
                     isChecked: [...new Set(newlabelArr)]
                 }
             }
@@ -16,10 +16,10 @@ const NoteFilter=(state,action)=>{
                 const newlabelArr = state.isChecked.filter((item) => item !== action.payload)
                 return {
                     ...state,
-                    ...state.isChecked,
                     isChecked: [...new Set(newlabelArr)]
                 }
             }
+           
         }
         //priority
         case 'PRIORITY' :{
